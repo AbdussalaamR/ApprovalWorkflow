@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MEMOJET.DTOs;
 
@@ -12,9 +13,13 @@ namespace MEMOJET.Interfaces.Service
         public Task<FormResponseModel> UpdateForm(CreateFormRequestModel model, int id);
         public Task<FormResponseModel> GetForm(int id);
         public Task<FormsResponseModel> GetAllForms();
-        public Task<FormsResponseModel> GetAllFormsByUser(int userId);
+        public Task<UserFormsResponseModel> GetAllFormsByUser(int userId);
+        
+        public Task<UserFormResponseModel> GetUserForm(int userId);
         public Task<string> DeleteForm(int id);
         public Task<String> GetFormStatus(int id);
         public Task<String> GetFormLocation(int id);
+        Task<UserFormsResponseModel> GetAllFormsByApproval(int userId, IList<int> Ids);
+        //Task<UserFormsResponseModel> GetTotalFormsByApproval(int id);
     }
 }

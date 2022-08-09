@@ -15,13 +15,15 @@ namespace MEMOJET.Controllers
         private readonly IJWTAuthenticationManager _authenticationManager;
         private readonly IRoleService _roleService;
 
-        public UserController(IUserService userService, IJWTAuthenticationManager authenticationManager, IRoleService roleService)
+        public UserController(IUserService userService, IJWTAuthenticationManager authenticationManager,
+            IRoleService roleService)
         {
             _userService = userService;
             _authenticationManager = authenticationManager;
             _roleService = roleService;
         }
-        [HttpPost ("CreateUser")]
+
+        [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser(CreateUserRequestModel model)
         {
             var user = await _userService.CreateUser(model);
@@ -29,22 +31,24 @@ namespace MEMOJET.Controllers
             {
                 return BadRequest(user.Message);
             }
+
             return Ok(user);
         }
-        
+
         //[Authorize (Roles = "Admin")]
-        [HttpPost ("AssignRoleToUser")]
-        public async Task<IActionResult> AssignRoleToUser(string email, int Ids)
+        [HttpPost("AssignRoleToUser")]
+        public async Task<IActionResult> AssignRoleToUser(AssignRoleRequestModel model)
         {
-            var userRoles = await _userService.AssignUserRole(Ids, email);
+            var userRoles = await _userService.AssignUserRole(model);
             if (!userRoles.Status)
             {
                 return BadRequest(userRoles.Message);
             }
+
             return Ok(userRoles);
         }
-        
-        [HttpGet ("GetUsersByRoleName")]
+
+        [HttpGet("GetUsersByRoleName")]
         public async Task<IActionResult> GetUserByRoleName(string roleName)
         {
             var role = await _userService.GetUsersByRoleName(roleName);
@@ -57,7 +61,8 @@ namespace MEMOJET.Controllers
                 return Ok(role.Data);
             }
         }
-        [HttpPatch ("Update")]
+
+        [HttpPatch("Update")]
         public async Task<IActionResult> UpdateUser(int id, UpdateUserRequestModel model)
         {
             var updatedUser = await _userService.UpdateUser(model, id);
@@ -65,11 +70,12 @@ namespace MEMOJET.Controllers
             {
                 return BadRequest(updatedUser.Message);
             }
+
             return Ok(updatedUser.Message);
         }
-        
-        [HttpGet ("GetUser")]
-        public async Task<IActionResult> GetUser(int id)
+
+        [HttpGet("GetUser/{id}")]
+        public async Task<IActionResult> GetUser([FromRoute]int id)
         {
             if (id == 0)
             {
@@ -91,7 +97,7 @@ namespace MEMOJET.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetUsers();
-            return Ok(users.Data);
+            return Ok(users);
         }
         
         [HttpDelete ("Delete")]
@@ -106,14 +112,14 @@ namespace MEMOJET.Controllers
             return Ok("Successful");
         }
         [HttpPost ("Login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login([FromBody]LogInRequestModel requestModel)
         {
-            var IsValid =  await _userService.Login(email, password);
+            var IsValid =  await _userService.Login(requestModel.Email, requestModel.Password);
             if (IsValid.Data == null)
             {
-                return BadRequest(IsValid.Message);
+                return BadRequest(IsValid);
             }
-            var role = await _roleService.GetRoleByUser(email);
+            var role = await _roleService.GetRoleByUser(requestModel.Email);
             var roles = role.Data;
             var token = _authenticationManager.GenerateToken(IsValid.Data, roles);
             var user = IsValid.Data;
@@ -122,6 +128,11 @@ namespace MEMOJET.Controllers
             var log = new LoginResponse()
             {
                 Token = token,
+                userName = $"{user.FirstName} {user.LastName}",
+                Email = user.Email,
+                userId = user.Id,
+                Status = true,
+                UserRoles = roles
             
             };
              return Ok(log);

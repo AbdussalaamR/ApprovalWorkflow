@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
+
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="page_name">
+             <a href="index.html">
+              MEMOjet
+             </a>  
+            </div>
+
+        </nav>
+        <div class="page_container">
+            <nav class="side_bar">
+                <ul>
+                  <li class="dashboard-icon">
+                    <a class="nav-link" href="index.html">
+                      <i class="bi bi-grid-fill"></i></i>   
+                      </a>
+                      Dashboard
+                    </li>
+                <li class="nav-item sidebar-item  has-sub">
+                  <a class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="form-elements">
+                    <i class="icon-columns menu-icon"></i>
+                    <span class="menu-title" onclick="renderForms()">Send Request</span>
+                    <i class="menu-arrow"></i> 
+                  </a>
+                  <div class="collapse" id="form-elements">
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/UserDashboard/approvalRequests.html">
+                    <i class="icon-paper menu-icon"></i>
+                    <span class="menu-title">Approval Requests</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/UserDashboard/myRequests.html
+                   ">
+                    <i class="icon-paper menu-icon"></i>
+                    <span class="menu-title">My Requests</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="createForm.html">
+                    <i class="icon-paper menu-icon"></i>
+                    <span class="menu-title">New Form</span>
+                  </a>
+                </li>
+
+                </ul>
+            </nav>
+            <div class="page-items">
+                <div class="form-process">
+                    <h3>Approver Creation Form</h3>
+                    <p>Fill in the fields below</p>
+                    <form class="approvalForm">
+                        <div class="form-floating mb-3" style="border-radius: 2pc">
+                            <label for="name">Approver's Email</label>
+                            <input class="form-control" id="approverMail" type="text" name="email" style="border-radius: 2pc"/>
+                        </div>
+                        <div class="form-floating mb-3" style="border-radius: 2pc">
+                            <label for="name">Approver's Role</label>
+                            <input class="form-control" id="approverRole" type="text" name="approvalRole" style="border-radius: 2pc"/>
+                        </div>
+                                   <div class="form-floating mb-3">
+                                    <label for="description">Position in the sequence</label>
+                                       <input class="form-control" id="sequenceNum" type="number" name="sequence" style="border-radius: 2pc"/>   
+                                   </div>
+                                   <div class="form-floating mb-3" style="border-radius: 2pc">
+                                    <label for="name">Responsibility Centre</label>
+                                    <select id="Appcentre" name="responsibilityCentreId" style="border-radius: 2pc"></select>
+                                </div>
+                                   <div class="d-grid"><button class="btn btn-primary" id="submitButton" type="submit" style="border-radius: 3pc" onclick="createApproval()">Submit</button>
+                                    </div>
+                        </div>
+                    </form>
+                    <a class="nav-link" href="/UserDashboard/admin.html">
+                      <h3>Next</h3>
+                    </a>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="/UserDashboard/js/formRender.js"></script>
+    <script src="/UserDashboard/js/respocentre.js"></script>
+    <script src="/UserDashboard/js/createApproval.js"></script>
+    <!-- <script src="js/formProcess.js"></script> -->
+</body>
+</html>

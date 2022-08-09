@@ -23,9 +23,9 @@ namespace MEMOJET.Implementations.Repository
             return form;
         }
 
-        public async Task<UserForm> GetUserForm(int id)
+        public async Task<UserForm> GetApprovedForms(int id)
         {
-            var form = await _context.UserForms.FirstOrDefaultAsync(x =>x.IsDeleted == false && x.Id == id);
+            var form = await _context.UserForms.FirstOrDefaultAsync(x =>x.IsDeleted == false && x.Id == id && x.ApprovalStatus == ApprovalStatus.Approved);
             return form;
         }
 
@@ -49,15 +49,18 @@ namespace MEMOJET.Implementations.Repository
         }
         public async Task<Form> Getform(int id)
         {
-            var form = await _context.Forms.FirstOrDefaultAsync(x =>x.IsDeleted == false && x.Id == id);
+            var form = await _context.Forms.Include(x => x.UserForms).FirstOrDefaultAsync(x =>x.IsDeleted == false && x.Id == id);
             return form;
         }
             
         public async Task<UserForm> GetUserform(int id)
         {
-            var form = await _context.UserForms.FirstOrDefaultAsync(x =>x.IsDeleted == false && x.Id == id);
+            var form = await _context.UserForms.Include(x => x.Comments).Include(x => x.UplodedDocs).FirstOrDefaultAsync(x =>x.IsDeleted == false && x.Id == id && x.ApprovalStatus ==ApprovalStatus.InProgress);
             return form;
         }
+
+        
+
         public async Task<IList<Form>> GetForms()
         {
             var forms = await _context.Forms.ToListAsync();
@@ -66,7 +69,23 @@ namespace MEMOJET.Implementations.Repository
 
         public async Task<IList<UserForm>> GetFormsByUser(int userId)
         {
-            var forms = await _context.UserForms.Where(x => x.UserId == userId).ToListAsync();
+            var forms = await _context
+                .UserForms.Include(x => x.Comments).Where(x => x.CreatedBy == userId).ToListAsync();
+            return forms;
+        }
+        
+        public async Task<IList<UserForm>>  GetFormsByApproval(IList<int> Ids)
+        {
+            var forms = await _context.UserForms.Include(i => i.Comments)
+                .Include(y =>y.UplodedDocs).Where(x => Ids.Contains(x.ApprovalId) && x.ApprovalStatus == ApprovalStatus.InProgress || x.ApprovalStatus ==ApprovalStatus.Revise).ToListAsync();
+            return forms;
+        }
+
+        
+        public async Task<IList<UserForm>> GetAllFormsByApproval(int userId)
+        {
+            var forms = await _context.UserForms.Include(i => i.Comments)
+                .Include(y =>y.UplodedDocs).Where(x => x.UserId == userId).ToListAsync();
             return forms;
         }
     }

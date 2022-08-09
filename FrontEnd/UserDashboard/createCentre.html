@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User dashboard</title>
+    <link rel="stylesheet" href="style.css">
+   
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="page_name">
+                <a href="index.html">
+                    MEMOjet
+                   </a>   
+            </div>
+
+        </nav>
+        <div class="page_container">
+            <nav class="side_bar">
+                <ul>
+                  <li class="dashboard-icon">
+                    <a class="nav-link" href="index.html">
+                      <i class="bi bi-grid-fill"></i></i>   
+                      </a>
+                      Dashboard
+                    </li>
+                <li class="nav-item sidebar-item  has-sub">
+                  <a class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="form-elements">
+                    <i class="icon-columns menu-icon"></i>
+                    <span class="menu-title" onclick="renderForms()">Send Request</span>
+                    <i class="menu-arrow"></i> 
+                  </a>
+                  <div class="collapse" id="form-elements">
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="admin.html">
+                    <i class="icon-paper menu-icon"></i>
+                    <span class="menu-title" >Approval Requests</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="admin.html">
+                    <i class="icon-paper menu-icon"></i>
+                    <span class="menu-title"> New Form</span>
+                  </a>
+                </li>
+
+                </ul>
+            </nav>
+            <div class="page-items">
+               
+                <div class="form-process">
+                    <h3>New Centre Creation Form</h3>
+                    <p>Fill in the fields below</p>
+                    <form class="centreForm">
+                        <div class="form-floating mb-3" style="border-radius: 2pc">
+                            <label for="name">What's the centre to be called?</label>
+                            <input class="form-control" id="centreName" type="text" name="name" style="border-radius: 2pc"/>
+                        </div>
+                                   <div class="form-floating mb-3">
+                                    <label for="description">Description</label>
+                                       <input class="form-control" id="centre" type="text" name="description" style="border-radius: 2pc"/>
+                                       
+                                   </div>
+                                   <div class="d-grid"><button class="btn btn-primary" id="submitButton" type="submit" style="border-radius: 3pc" onclick="CreateCentre()">Submit</button>
+                                    </div>
+                        </div>
+                    </form>
+                    <a class="nav-link" href="/UserDashboard/createApproval.html">
+                      <h3>Next</h3>
+                    </a>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <script src="js/formRender.js"></script>
+    <script src="/UserDashboard/js/formProcess.js"></script>
+    
+    
+</body>
+</html>

@@ -14,5 +14,6 @@ namespace MEMOJET.Identity
         public  string Email { get; set; }
         public ICollection<UserForm> UserForms { get; set; } = new List<UserForm>();
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public ICollection<UploadedDoc> UploadedDocs { get; set; } = new List<UploadedDoc>();
     }
 }

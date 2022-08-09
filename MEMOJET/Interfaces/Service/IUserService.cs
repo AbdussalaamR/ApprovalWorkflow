@@ -7,7 +7,7 @@ namespace MEMOJET.Interfaces.Service
     public interface IUserService
     {
         public Task<UserResponseModel> CreateUser(CreateUserRequestModel model);
-        public Task<UserResponseModel> AssignUserRole(int RoleId, string email);
+        public Task<UserResponseModel> AssignUserRole(AssignRoleRequestModel model);
         public Task<UserResponseModel> DeleteUserRole(int RoleId, string email);
         public Task<UserResponseModel> UpdateUser(UpdateUserRequestModel model, int id);
         public Task<UsersResponseModel> GetUsers();

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MEMOJET.DTOs;
 using MEMOJET.Entities;
@@ -11,19 +12,31 @@ namespace MEMOJET.Implementations.Service
     {
         private readonly IApprovalRepo _approvalRepo;
         private readonly IResponsibilityCentreRepo _centreRepo;
+        private readonly IUserRepository _userRepository;
 
-        public ApprovalService(IApprovalRepo approvalRepo, IResponsibilityCentreRepo centreRepo)
+        public ApprovalService(IApprovalRepo approvalRepo, IUserRepository userRepository, IResponsibilityCentreRepo centreRepo)
         {
             _approvalRepo = approvalRepo;
             _centreRepo = centreRepo;
+            _userRepository = userRepository;
         }
 
         public async Task<ApprovalResponseModel> CreateApproval(CreateApprovalRequestModel model)
         {
+            var user = await _userRepository.GetUserByEmail(model.Email);
+            var approverExist = await _approvalRepo.ApproverExist(user.Id, model.ResponsibilityCentreId); 
+            if (approverExist)
+            {
+                return new ApprovalResponseModel
+                {
+                    Message = $"{model.Email} already exists in centre",
+                    Status = false
+                };
+            }
+
             var approval = new Approval
             {
-                Id = model.Id,
-                UserId = model.UserId,
+                UserId = user.Id,
                 Sequence = model.Sequence,
                 ApprovalRole = model.ApprovalRole,
                 ResponsibilityCentreId = model.ResponsibilityCentreId
@@ -54,7 +67,8 @@ namespace MEMOJET.Implementations.Service
                     UserId = newApproval.UserId,
                     Sequence = newApproval.Sequence,
                     ResponsibilityCentreId = newApproval.ResponsibilityCentreId,
-                    ApprovalRole = newApproval.ApprovalRole
+                    ApprovalRole = newApproval.ApprovalRole,
+                    //ApprovalResponsibilityCentres = newApproval.ApprovalResponsibilityCentres,
                 },
                 Message = "Created Successfully",
                 Status = true
@@ -74,7 +88,7 @@ namespace MEMOJET.Implementations.Service
             }
 
             approval.Sequence = model.Sequence;
-            approval.UserId = model.UserId;
+            approval.UserId = approval.UserId;
             approval.ApprovalRole = model.ApprovalRole;
             approval.ResponsibilityCentreId = model.ResponsibilityCentreId;
             var updatedApproval = await _approvalRepo.UpdateApproval(approval);
@@ -131,7 +145,7 @@ namespace MEMOJET.Implementations.Service
 
         public async Task<ApprovalsResponseModel> GetAllApprovals()
         {
-            var approvals = await _approvalRepo.GetApprovals();
+            var approvals = await _approvalRepo.GetAllApprovals();
             var approvalsDto = approvals.Select(x => new ApprovalDto
             {
                 Id = x.Id,
@@ -146,6 +160,19 @@ namespace MEMOJET.Implementations.Service
                 Status = true,
                 Data = approvalsDto
             };
+        }
+
+        public async Task<IList<int>> GetApprovalIdsOfUser(int userId)
+        {
+            var approvals = await _approvalRepo.GetApprovalsByUserId(userId);
+            var userApprovalIds = new List<int>();
+
+            foreach (var x in approvals)
+            {
+                userApprovalIds.Add(x.Id);
+            }
+
+            return userApprovalIds;
         }
 
         public async Task<string> DeleteApproval(int id)
@@ -158,24 +185,28 @@ namespace MEMOJET.Implementations.Service
 
         public async Task<ApprovalsResponseModel> GetApprovalsInRespoCentre(int centreId)
         {
+            var approvalDTo = new List<ApprovalDto>();
             var approvals = await _approvalRepo.GetApprovalsInCentre(centreId);
-            var approvalsDto = approvals.Select(x => new ApprovalDto
+            foreach (var x in approvals)
             {
-                Id = x.Id,
-                UserId = x.UserId,
-                Sequence = x.Sequence,
-                ResponsibilityCentreId = x.ResponsibilityCentreId,
-                ApprovalRole = x.ApprovalRole
-            }).ToList();
+                var appDto = new ApprovalDto
+                {
+                    approvalName = (await _userRepository.GetUser(x.UserId)).LastName,
+                    Id = x.Id,
+                    UserId = x.UserId,
+                    Sequence = x.Sequence,
+                    ResponsibilityCentreId = x.ResponsibilityCentreId,
+                    ApprovalRole = x.ApprovalRole
+                };
+                approvalDTo.Add(appDto);
+            }
+            
             return new ApprovalsResponseModel
             {
                 Message = "Retrieved successfully",
                 Status = true,
-                Data = approvalsDto
+                Data = approvalDTo
             };
-            {
-                
-            }
         }
     }
 }

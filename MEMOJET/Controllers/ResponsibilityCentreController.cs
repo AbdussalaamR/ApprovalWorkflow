@@ -16,9 +16,10 @@ namespace MEMOJET.Controllers
             _centreService = centreService;
         }
 
-        [HttpPost ("Create")]
-        public async Task<IActionResult> CreateCentre(CreateRespoCentreDto model)
+        [HttpPost ("CreateCentre")]
+        public async Task<IActionResult> CreateCentre([FromForm] CreateRespoCentreDto model)
         {
+            
             var centre = await _centreService.CreateCentre(model);
             if (centre == null)
             {

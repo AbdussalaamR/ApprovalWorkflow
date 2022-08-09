@@ -1,4 +1,5 @@
-﻿using MEMOJET.Contract;
+﻿using System.Collections.Generic;
+using MEMOJET.Contract;
 
 namespace MEMOJET.Entities
 {
@@ -8,5 +9,7 @@ namespace MEMOJET.Entities
         public UserForm UserForm { get; set; }
         public int ApprovalId { get; set; }
         public string ApprovalComment { get; set; }
+        
+        public IList<UploadedDoc> UplodedDocs { get; set; }= new List<UploadedDoc>();
     }
 }

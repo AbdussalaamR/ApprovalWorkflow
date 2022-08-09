@@ -53,3 +53,12 @@ C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\obj\Debug\net5.0\refint\ME
 C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\obj\Debug\net5.0\MEMOJET.pdb
 C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\obj\Debug\net5.0\MEMOJET.genruntimeconfig.cache
 C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\obj\Debug\net5.0\ref\MEMOJET.dll
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\MailKit.dll
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\MimeKit.dll
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\sib_api_v3_sdk.dll
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\sib_api_v3_sdk.pdb
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\sib_api_v3_sdk.dll.config
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\FubarCoder.RestSharp.Portable.Core.dll
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\FubarCoder.RestSharp.Portable.HttpClient.dll
+C:\Users\HP\Documents\CodeLearnersHub\MEMOJET\MEMOJET\bin\Debug\net5.0\JsonSubTypes.dll

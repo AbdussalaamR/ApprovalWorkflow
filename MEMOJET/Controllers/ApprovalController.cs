@@ -64,8 +64,8 @@ namespace MEMOJET.Controllers
             return Ok(approvals);
         }
         
-        [HttpGet ("GetApprovalsInCentre")]
-        public async Task<IActionResult> GetApprovalsInCentre(int centreId)
+        [HttpGet ("GetApprovalsInCentre/{centreId}")]
+        public async Task<IActionResult> GetApprovalsInCentre([FromRoute] int centreId)
         {
             var approvals = await _approvalService.GetApprovalsInRespoCentre(centreId);
             

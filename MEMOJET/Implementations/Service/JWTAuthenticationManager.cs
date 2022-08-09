@@ -26,7 +26,7 @@ namespace MEMOJET.Implementations.Service
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Email, user.Email)
             };
             
@@ -48,6 +48,6 @@ namespace MEMOJET.Implementations.Service
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-        }
+        } 
     }
 }

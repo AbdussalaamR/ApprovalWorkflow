@@ -3,8 +3,8 @@
     public enum ApprovalAction
     {
         Approved = 1,
-        Revise,
-        Rejected,
-        Pending
+        Revise = 2,
+        Rejected = 3,
+        Pending = 4
     }
 }

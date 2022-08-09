@@ -7,6 +7,7 @@ namespace MEMOJET.DTOs
     {
         public int Id { get; set; }
         public int Sequence { get; set; }
+        public string approvalName { get; set; }
         
         public int UserId { get; set; }
         
@@ -19,10 +20,10 @@ namespace MEMOJET.DTOs
 
     public class CreateApprovalRequestModel
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public int Sequence { get; set; }
         
-        public int UserId { get; set; }
+        public string Email { get; set; }
         public string ApprovalRole { get; set; } //referring to the role of the user approving
         public int ResponsibilityCentreId { get; set; }
     }

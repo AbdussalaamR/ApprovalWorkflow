@@ -105,6 +105,8 @@ namespace MEMOJET.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApprovalId");
+
                     b.HasIndex("UserFormId");
 
                     b.ToTable("Comments");
@@ -168,6 +170,50 @@ namespace MEMOJET.Migrations
                     b.ToTable("ResponsibilityCentres");
                 });
 
+            modelBuilder.Entity("MEMOJET.Entities.UploadedDoc", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Data")
+                        .HasColumnType("varbinary(4000)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Extension")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UploadedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserFormId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserFormId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UploadedDocs");
+                });
+
             modelBuilder.Entity("MEMOJET.Entities.UserForm", b =>
                 {
                     b.Property<int>("Id")
@@ -182,6 +228,9 @@ namespace MEMOJET.Migrations
 
                     b.Property<int>("ApprovalStatus")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ArrivedApproval")
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -328,11 +377,40 @@ namespace MEMOJET.Migrations
 
             modelBuilder.Entity("MEMOJET.Entities.Comment", b =>
                 {
+                    b.HasOne("MEMOJET.Entities.Approval", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ApprovalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MEMOJET.Entities.UserForm", "UserForm")
                         .WithMany("Comments")
                         .HasForeignKey("UserFormId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("UserForm");
+                });
+
+            modelBuilder.Entity("MEMOJET.Entities.UploadedDoc", b =>
+                {
+                    b.HasOne("MEMOJET.Entities.Comment", "Comment")
+                        .WithMany("UplodedDocs")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MEMOJET.Entities.UserForm", "UserForm")
+                        .WithMany("UplodedDocs")
+                        .HasForeignKey("UserFormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MEMOJET.Identity.User", null)
+                        .WithMany("UploadedDocs")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Comment");
 
                     b.Navigation("UserForm");
                 });
@@ -378,6 +456,13 @@ namespace MEMOJET.Migrations
             modelBuilder.Entity("MEMOJET.Entities.Approval", b =>
                 {
                     b.Navigation("ApprovalResponsibilityCentres");
+
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("MEMOJET.Entities.Comment", b =>
+                {
+                    b.Navigation("UplodedDocs");
                 });
 
             modelBuilder.Entity("MEMOJET.Entities.Form", b =>
@@ -393,6 +478,8 @@ namespace MEMOJET.Migrations
             modelBuilder.Entity("MEMOJET.Entities.UserForm", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("UplodedDocs");
                 });
 
             modelBuilder.Entity("MEMOJET.Identity.Role", b =>
@@ -402,6 +489,8 @@ namespace MEMOJET.Migrations
 
             modelBuilder.Entity("MEMOJET.Identity.User", b =>
                 {
+                    b.Navigation("UploadedDocs");
+
                     b.Navigation("UserForms");
 
                     b.Navigation("UserRoles");

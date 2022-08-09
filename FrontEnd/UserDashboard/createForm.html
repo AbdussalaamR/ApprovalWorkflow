@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
+
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="page_name">
+              <a href="index.html">
+                MEMOjet
+               </a>   
+            </div>
+
+        </nav>
+        <div class="page_container">
+            <nav class="side_bar">
+                <ul>
+                  <li class="dashboard-icon">
+                    <a class="nav-link" href="index.html">
+                      <i class="bi bi-grid-fill"></i></i>   
+                      </a>
+                      Dashboard
+                    </li>
+                <li class="nav-item sidebar-item  has-sub">
+                  <a class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="form-elements">
+                    <i class="icon-columns menu-icon"></i>
+                    <span class="menu-title" onclick="renderForms()">Send Request</span>
+                    <i class="menu-arrow"></i> 
+                  </a>
+                  <div class="collapse" id="form-elements">
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/UserDashboard/approvalRequests.html">
+                    <i class="icon-paper menu-icon"></i>
+                    <span class="menu-title">Approval Requests</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="admin.html">
+                    <i class="icon-paper menu-icon"></i>
+                    <span class="menu-title">New Form</span>
+                  </a>
+                </li>
+
+                </ul>
+            </nav>
+            <div class="page-items">
+               
+                <div class="form-process">
+                    <h3>To create a new request form for use, follow the following steps</h3>
+                    <ol>
+                        <li>
+                          <p>New Responsibility centre?<a class="nav-link" href="createCentre.html">
+                            <span>Click to Create </span>
+                          </a> OR 
+                          <a href="/UserDashboard/centres.html">
+                            <span id="existing_centres">View existing centres</span>
+                          </a></p> 
+                        </li>
+                        <li>
+                          <a class="nav-link" href="createApproval.html">
+                            <span>Create approval(s) for the centre</span>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="admin.html">
+                            <span>Create the form</span>
+                        </li>
+                    </ol>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <script src="js/formRender.js"></script>
+    
+</body>
+
+
+
+
+
+
+
+
+
+

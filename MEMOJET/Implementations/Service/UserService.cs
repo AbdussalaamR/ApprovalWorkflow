@@ -37,7 +37,7 @@ namespace MEMOJET.Implementations.Service
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = model.UserName,
+                //UserName = model.UserName,
                 Password = model.Password,
             };
             var role = await _roleRepository.getRoleByName("Staff");
@@ -75,9 +75,9 @@ namespace MEMOJET.Implementations.Service
         }
         
 
-        public async Task<UserResponseModel> AssignUserRole(int RoleId, string email)
+        public async Task<UserResponseModel> AssignUserRole(AssignRoleRequestModel model)
         {
-            var user = await _userRepository.GetUserByEmail(email);
+            var user = await _userRepository.GetUserByEmail(model.Email);
             if (user == null)
             {
                 return new UserResponseModel
@@ -87,7 +87,7 @@ namespace MEMOJET.Implementations.Service
                 };
             }
 
-            var role = await _roleRepository.GetRole(RoleId);
+            var role = await _roleRepository.GetRole(model.RoleId);
             
             var userRoles = await _roleRepository.GetRoleByUser(user.Email);
             foreach (var rol in userRoles)
@@ -103,7 +103,7 @@ namespace MEMOJET.Implementations.Service
             }
             var userRole = new UserRole
                 {
-                    RoleId = RoleId,
+                    RoleId = model.RoleId,
                     
                     UserId = user.Id,
                     User = user,
@@ -116,14 +116,14 @@ namespace MEMOJET.Implementations.Service
             {
                 return new UserResponseModel
                 {
-                    Message = $"Unable to assign roles to {user.LastName}",
+                    Message = $"Unable to assign roles to {user.FirstName} {user.LastName}",
                      Status = false
                 };
             }
 
             return new UserResponseModel
             {
-                Message = $"Roles successfully assigned to {user.FirstName} {user.LastName}",
+                Message = $"Role-{role.Name}  successfully assigned to {user.FirstName} {user.LastName}",
                 Status = true,
                 Data = new UserDto
                 {
@@ -223,8 +223,12 @@ namespace MEMOJET.Implementations.Service
                 Id = s.Id,
                 Email = s.Email,
                 UserName = s.UserName,
-                UserRoles = s.UserRoles,
-                UserForms = s.UserForms
+                UserRoles = s.UserRoles.Select(s => new RoleDto
+                {
+                    Name = s.Role.Name,
+                    Description = s.Role.Description
+                }).ToList()
+                
             }).ToList();
             return new UsersResponseModel
             {
@@ -244,7 +248,6 @@ namespace MEMOJET.Implementations.Service
                 Id = s.User.Id,
                 Email = s.User.Email,
                 UserName = s.User.UserName,
-                
             }).ToList();
             return new UsersResponseModel
             {
@@ -275,7 +278,12 @@ namespace MEMOJET.Implementations.Service
                     LastName = user.LastName,
                     Id = user.Id,
                     Email = user.Email,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    UserRoles = user.UserRoles.Select(user => new RoleDto
+                    {
+                        Name = user.Role.Name,
+                        Description = user.Role.Description
+                    }).ToList()
                 }
             };
         }
@@ -301,7 +309,12 @@ namespace MEMOJET.Implementations.Service
                     LastName = user.LastName,
                     Id = user.Id,
                     Email = user.Email,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    UserRoles = user.UserRoles.Select(user => new RoleDto
+                    {
+                        Name = user.Role.Name,
+                        Description = user.Role.Description
+                    }).ToList()
                 }
             };
         }
@@ -342,7 +355,11 @@ namespace MEMOJET.Implementations.Service
                     Id = user.Id,
                     Email = user.Email,
                     UserName = user.UserName,
-                    UserRoles = user.UserRoles
+                    UserRoles = user.UserRoles.Select(user => new RoleDto
+                    {
+                        Name = user.Role.Name,
+                        Description = user.Role.Description
+                    }).ToList()
                 }
             };
         }

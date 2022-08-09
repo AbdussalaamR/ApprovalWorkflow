@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="">
+    
+</head>
+<body>
+    <div class="container"></div>
+
+    <form id="adminForm">
+            <div class="form-floating mb-3" style="border-radius: 2pc">
+                <label for="name" id="formField" >Form title:</label>
+                    <input class="form-control" type="text" id="title" name="name"></div>
+            <div>
+                <label for="description" id="formField">Description:</label>
+                <input class="form-control" type="text" id="descr" name="description">
+            </div>
+            <div>
+                <label for="respoCentreId" id="formField">Responsibility Centre:</label>
+                <select  id="centre" name="respoCentreId"></select>
+            
+            </div>
+        <div id="data">
+
+        </div>
+        <button onclick="addField()">Add form field</button>
+    </div>
+    <!-- Submit Button-->
+    <div class="d-grid"><button class="btn btn-primary" id="submitButton" type="submit" onclick="sendDataToBackEnd()">Submit</button></div>
+</form>
+
+    <script src="js/createForm.js"></script>
+    <script src="js/respocentre.js"></script>
+</body>
+</html>

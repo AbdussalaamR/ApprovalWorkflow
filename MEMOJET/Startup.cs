@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MEMOJET.Context;
 using MEMOJET.Implementations.Repository;
 using MEMOJET.Implementations.Service;
+using MEMOJET.Implementations.Service.EMailService;
 using MEMOJET.Interfaces.Repository;
 using MEMOJET.Interfaces.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,6 +53,15 @@ namespace MEMOJET
 
             services.AddScoped<IFormRepo, FormRepo>();
             services.AddScoped<IFormService, FormService>();
+
+            services.AddScoped<ICommentRepo, CommentRepo>();
+            
+            services.AddScoped<IUploadedDocRepo, UploadedDocRepo>();
+            services.AddScoped<IuploadedDocService, UploadedDocService>();
+
+            services.AddScoped<IUserformRepo, UserFormRepo>();
+            
+            services.AddScoped<IMailService, MailService>();
 
             services.AddCors(a => a.AddPolicy("CorsPolicy", builder =>
             {

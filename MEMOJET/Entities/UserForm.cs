@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MEMOJET.Contract;
 using MEMOJET.Identity;
 
@@ -16,6 +17,8 @@ namespace MEMOJET.Entities
         public int ResponsibilityCentreId { get; set; }
         public ApprovalStatus ApprovalStatus { get; set; }
         public ApprovalAction ApprovalAction { get; set; }
+        public DateTime ArrivedApproval { get; set; }
+         public IList<UploadedDoc> UplodedDocs { get; set; }= new List<UploadedDoc>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-    }
+         }
 }

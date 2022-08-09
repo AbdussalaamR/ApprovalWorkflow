@@ -16,6 +16,10 @@ namespace MEMOJET.Implementations.Repository
         {
             _context = context;
         }
+        public async Task<bool> ApproverExist(int userId, int centId)
+        {
+            return await _context.Approvals.AnyAsync(x => x.UserId == userId && x.ResponsibilityCentreId == centId);
+        }
         public async Task<Approval> CreateApproval(Approval approval)
         {
             await _context.Approvals.AddAsync(approval);
@@ -43,9 +47,15 @@ namespace MEMOJET.Implementations.Repository
            return approval;
         }
 
-        public async Task<IList<Approval>> GetApprovals()
+        public async Task<IList<Approval>> GetAllApprovals()
         {
             var approvals = await _context.Approvals.ToListAsync();
+            return approvals;
+        }
+
+        public async Task<IList<Approval>> GetApprovalsByUserId(int userId)
+        {
+            var approvals = await _context.Approvals.Where(x => x.UserId == userId).ToListAsync();
             return approvals;
         }
 

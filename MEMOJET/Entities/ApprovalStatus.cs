@@ -4,6 +4,7 @@
     {
         InProgress = 1,
         Approved,
-        Rejected
+        Rejected,
+        Revise
     }
 }

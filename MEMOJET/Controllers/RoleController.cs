@@ -22,6 +22,7 @@ namespace MEMOJET.Controllers
                 _roleService = roleService;
                 _contextAccessor = contextAccessor;
             }
+            //[Authorize (Roles = "Admin")]
             [HttpPost ("CreateRole")]
             public async Task<IActionResult> CreateRole(CreateRoleRequestModel model)
             {
@@ -89,7 +90,7 @@ namespace MEMOJET.Controllers
             [HttpDelete ("Delete")]
             public async Task<IActionResult> DeleteRole(int id)
             {
-                var deleted = _roleService.DeleteRole(id);
+                var deleted = await _roleService.DeleteRole(id);
 
                 return Ok(deleted);
             }

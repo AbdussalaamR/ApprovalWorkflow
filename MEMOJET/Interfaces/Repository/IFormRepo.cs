@@ -7,15 +7,17 @@ namespace MEMOJET.Interfaces.Repository
 {
     public interface IFormRepo
     {
-        Task<Form> CreateForm(Form form); 
-        Task<UserForm> GetUserForm(int id);
-        //Task<UserForm> GetUserForm(Expression expression);
+        Task<Form> CreateForm(Form form);
+        Task<UserForm> GetApprovedForms(int id);
         Task<Form> UpdateForm(Form form);
         Task<bool> DeleteForm(Form form);
         Task<bool> FormExists(string formName);
         Task<Form> Getform(int id);
+        
         Task<IList<Form>> GetForms();
         Task<IList<UserForm>> GetFormsByUser(int userId);
         public Task<UserForm> GetUserform(int id);
+        Task<IList<UserForm>> GetFormsByApproval(IList<int> Ids);
+        Task<IList<UserForm>> GetAllFormsByApproval(int userId);
     }
 }

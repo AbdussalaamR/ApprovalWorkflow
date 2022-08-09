@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MEMOJET.DTOs;
 
 namespace MEMOJET.Interfaces.Service
@@ -9,6 +10,7 @@ namespace MEMOJET.Interfaces.Service
         public Task<ApprovalResponseModel> UpdateApproval(CreateApprovalRequestModel model, int id);
         public Task<ApprovalResponseModel> GetApproval(int id);
         public Task<ApprovalsResponseModel> GetAllApprovals();
+        public Task<IList<int>> GetApprovalIdsOfUser(int userId);
         public Task<string> DeleteApproval(int id);
         public Task<ApprovalsResponseModel> GetApprovalsInRespoCentre(int centreId);
     }

@@ -20,6 +20,7 @@ namespace MEMOJET.Context
         public DbSet<User>Users { get; set; }
         public DbSet<UserRole>UserRoles { get; set; }
         public DbSet<Comment>Comments { get; set; }
+        public DbSet<UploadedDoc>UploadedDocs { get; set; }
     }
     
 }
